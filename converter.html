@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Temp Converter</title>
+    <style>
+       
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .converter-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 320px;
+            text-align: center;
+        }
+
+        h2 { color: #333; margin-bottom: 1.5rem; font-size: 1.2rem; }
+
+        .input-group { margin-bottom: 1.2rem; text-align: left; }
+
+        label { font-size: 0.8rem; color: #777; display: block; margin-bottom: 5px; }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input:focus { border-color: #4caf50; }
+
+        .convert-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .convert-btn:hover { background-color: #388e3c; }
+
+        .result-area {
+            margin-top: 1.5rem;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            min-height: 50px;
+        }
+
+        #resultValue {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="converter-card">
+        <h2>Temperature Converter</h2>
+        
+        <div class="input-group">
+            <label>Degrees</label>
+            <input type="number" id="tempInput" placeholder="Enter value...">
+        </div>
+
+        <div class="input-group">
+            <label>Type</label>
+            <select id="unitType">
+                <option value="celsius">Celsius to Fahrenheit</option>
+                <option value="fahrenheit">Fahrenheit to Celsius</option>
+                <option value="kelvin">Celsius to Kelvin</option>
+            </select>
+        </div>
+
+        <button class="convert-btn" onclick="convertTemp()">Convert Now</button>
+
+        <div class="result-area">
+            <div id="resultValue">-- °</div>
+        </div>
+    </div>
+
+    <script>
+        function convertTemp() {
+            // Get the user input
+            const val = document.getElementById("tempInput").value;
+            const unit = document.getElementById("unitType").value;
+            const resultDisplay = document.getElementById("resultValue");
+
+            // Validate that the input is a number
+            if (val === "") {
+                resultDisplay.innerHTML = "Please enter a number";
+                return;
+            }
+
+            let result = 0;
+            let numberVal = parseFloat(val);
+
+            // Calculation Logic
+            if (unit === "celsius") {
+                result = (numberVal * 9/5) + 32;
+                resultDisplay.innerHTML = result.toFixed(2) + " °F";
+            } else if (unit === "fahrenheit") {
+                result = (numberVal - 32) * 5/9;
+                resultDisplay.innerHTML = result.toFixed(2) + " °C";
+            } else if (unit === "kelvin") {
+                result = numberVal + 273.15;
+                resultDisplay.innerHTML = result.toFixed(2) + " K";
+            }
+        }
+    </script>
+
+</body>
+</html>
